@@ -21,15 +21,25 @@ export class StudentService {
     return this.studentRepository.save(newStudent);  // Save the student
   }
 
-  // Update an existing student
+  // Update an existing student by ID
   async updateStudent(id: number, studentData: Partial<Student>): Promise<Student> {
     const student = await this.studentRepository.findOne(id);  // Find the student by ID
     if (!student) {
-      throw new Error('Student not found');
+      throw new Error('Student not found');  // Throw error if student is not found
     }
 
     // Update the student data and save it
     Object.assign(student, studentData);
-    return this.studentRepository.save(student);
+    return this.studentRepository.save(student);  // Save updated student
+  }
+
+  // Delete a student by ID
+  async deleteStudent(id: number): Promise<void> {
+    const student = await this.studentRepository.findOne(id);  // Find the student by ID
+    if (!student) {
+      throw new Error('Student not found');  // Throw error if student is not found
+    }
+
+    await this.studentRepository.delete(id);  // Delete the student from the database
   }
 }
