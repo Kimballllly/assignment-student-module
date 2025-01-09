@@ -23,7 +23,7 @@ export class StudentService {
 
   // Update an existing student by ID
   async updateStudent(id: number, studentData: Partial<Student>): Promise<Student> {
-    const student = await this.studentRepository.findOne(id);  // Find the student by ID
+    const student = await this.studentRepository.findOne({ where: { id } });  // Find the student by ID
     if (!student) {
       throw new Error('Student not found');  // Throw error if student is not found
     }
@@ -35,7 +35,7 @@ export class StudentService {
 
   // Delete a student by ID
   async deleteStudent(id: number): Promise<void> {
-    const student = await this.studentRepository.findOne(id);  // Find the student by ID
+    const student = await this.studentRepository.findOne({ where: { id } });  // Find the student by ID
     if (!student) {
       throw new Error('Student not found');  // Throw error if student is not found
     }
